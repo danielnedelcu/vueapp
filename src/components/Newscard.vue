@@ -69,7 +69,7 @@ import { defineComponent } from 'vue'
 import News from '../models/News'
 import  store from '../store/index'
 import Fingerprint2 from 'fingerprintjs2';
-import { newsRef } from '../firebase';
+import { newsitemsRef } from '../firebase';
 import { mapGetters, mapActions } from 'vuex';
 import  {ASSIGN_CURRENT_SELECTED_ITEM, ASSIGN_EDIT_DRAWER_STATE}  from "../store/actions.type";
 
@@ -149,7 +149,7 @@ export default defineComponent({
             /**
              * Update firestore DB
              */
-            newsRef.doc(id).update({
+            newsitemsRef.doc(id).update({
                 likes : ++count
             })
             .then( (e) => {
@@ -224,7 +224,7 @@ export default defineComponent({
     }
     
     .card {
-        width: 25%;
+        width: 100%;
         border-radius : 0;
         float: left;    
         padding: 10px;
