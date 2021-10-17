@@ -6,7 +6,7 @@
             <news-card v-for="(member, key, index) in newsItems" 
               :key="key" 
               :dataindex="index"
-              :news = member 
+              :news="member" 
               class="List card"
               flat>                                         
             </news-card>            
@@ -25,9 +25,9 @@
             <feed-card v-for="(feed, key, index) in feedItems" 
               :key="key" 
               :dataindex="index"
-              :feed = feed 
-              :class = feed.category
-              :data-value = feed.category
+              :feed="feed" 
+              :class="feed.category"
+              :data-value="feed.category"
               flat>                                         
             </feed-card>  
           </transition-group>      
@@ -44,7 +44,7 @@
                     <opinion-card v-for="(opinion, key, index) in opinionItems" 
                       :key="key" 
                       :dataindex="index"
-                      :opinion = opinion 
+                      :opinion="opinion"
                       class="card"
                       flat>                                         
                     </opinion-card>        
@@ -163,14 +163,20 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+  .headline-list {
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+  }
+
   .grid {
     min-height: 60vh;
   }
 
-  .list {
-    display: flex;
-    flex-wrap: wrap;    
-
+  .list {  
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(4,minmax(0,1fr));
 
     &-enter,
     &-leave-to { 

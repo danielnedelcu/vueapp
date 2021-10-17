@@ -150,7 +150,7 @@ import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 import { mapGetters, mapState, mapActions } from 'vuex';
-import { newsRef, feedRef, opinionRef, appRoot, storageRef, timeStamp  } from '../../firebase';
+import { newsitemsRef, feedRef, opinionRef, appRoot, storageRef, timeStamp  } from '../../firebase';
 import AgencyList from '../../data/Agency';
 import { ASSIGN_EDIT_DRAWER_STATE }  from "../../store/actions.type";
 import moment from 'moment'
@@ -333,43 +333,43 @@ export default defineComponent({
         onSave() {
             this.saveBtnLoading = true; 
             
-            this.$refs.myForm.validate().then(success => {
-                if (success) {                    
-                    this.tempCollection = Object.assign({}, this.CurrentItem);
-                    this.tempCollection.date = firebase.firestore.Timestamp.fromDate(new Date(this.CurrentItem.date));
+            // this.$refs.myForm.validate().then(success => {
+            //     if (success) {                    
+            //         this.tempCollection = Object.assign({}, this.CurrentItem);
+            //         this.tempCollection.date = firebase.firestore.Timestamp.fromDate(new Date(this.CurrentItem.date));
                   
-                    switch(this.CurrentItem.constructor.name) {
-                        case Constants.NEWS :
-                            newsRef.doc(this.CurrentItem.id).set(Object.assign({}, this.tempCollection)).then( (e) => {                                
-                                setTimeout( () => {
-                                    this.saveBtnLoading = false; 
-                                }, 1000)
-                            });
-                        break;  
-                        case Constants.FEED :
-                            feedRef.doc(this.CurrentItem.id).set(Object.assign({}, this.tempCollection)).then( (e) => {                                
-                                setTimeout( () => {
-                                    this.saveBtnLoading = false; 
-                                }, 1000)
-                            });
-                        break;  
-                        case Constants.OPINION :
-                            opinionRef.doc(this.CurrentItem.id).set(Object.assign({}, this.tempCollection)).then( (e) => {                                
-                                setTimeout( () => {
-                                    this.saveBtnLoading = false; 
-                                }, 1000)
-                            });
-                        break;                                 
-                    }    
+            //         switch(this.CurrentItem.constructor.name) {
+            //             case Constants.NEWS :
+            //                 newsitemsRef.doc(this.CurrentItem.id).set(Object.assign({}, this.tempCollection)).then( (e) => {                                
+            //                     setTimeout( () => {
+            //                         this.saveBtnLoading = false; 
+            //                     }, 1000)
+            //                 });
+            //             break;  
+            //             case Constants.FEED :
+            //                 feedRef.doc(this.CurrentItem.id).set(Object.assign({}, this.tempCollection)).then( (e) => {                                
+            //                     setTimeout( () => {
+            //                         this.saveBtnLoading = false; 
+            //                     }, 1000)
+            //                 });
+            //             break;  
+            //             case Constants.OPINION :
+            //                 opinionRef.doc(this.CurrentItem.id).set(Object.assign({}, this.tempCollection)).then( (e) => {                                
+            //                     setTimeout( () => {
+            //                         this.saveBtnLoading = false; 
+            //                     }, 1000)
+            //                 });
+            //             break;                                 
+            //         }    
                     
-                    /**
-                     * Change date back from Timestamp into readable format
-                     */
-                    this.tempCollection.date = moment.unix(this.tempCollection.date.seconds).format("MM/DD/YYYY");
-                }  else {
-                    alert('bad form')
-                }
-            })           
+            //         /**
+            //          * Change date back from Timestamp into readable format
+            //          */
+            //         this.tempCollection.date = moment.unix(this.tempCollection.date.seconds).format("MM/DD/YYYY");
+            //     }  else {
+            //         alert('bad form')
+            //     }
+            // })           
         },
 
         onPhotosClick() {}
