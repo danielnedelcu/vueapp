@@ -424,13 +424,7 @@ export default defineComponent({
             &-headline {
                 padding: 20px 10px;
                 color: #fff;
-                background-color: #708690;
-
-                .q-btn {
-                    .q-btn__wrapper {
-
-                    }
-                }
+                background-color: #708690
 
             }
 
