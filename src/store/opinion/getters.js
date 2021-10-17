@@ -1,0 +1,1 @@
+export const opinionItems = state => state.opinionitems

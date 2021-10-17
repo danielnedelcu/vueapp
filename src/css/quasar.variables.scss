@@ -1,0 +1,33 @@
+// Quasar SCSS (& Sass) Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass/SCSS variables found in Quasar's source Sass/SCSS files.
+
+// Check documentation for full list of Quasar variables
+
+// Your own variables (that are declared here) and Quasar's own
+// ones will be available out of the box in your .vue/.scss/.sass files
+
+// It's highly recommended to change the default colors
+// to match your app's branding.
+// Tip: Use the "Theme Builder" on Quasar's documentation website.
+
+@import './mixins/_transition';
+
+$primary    : #de174e;
+$secondary  : #26A69A;
+$accent     : #445963;
+$footer     : #272727;
+
+$positive   : #21BA45;
+$negative   : #C10015;
+$info       : #31CCEC;
+$culture    : #00acc1;
+$world      : rgb(253, 216, 53);
+$warning    : #F2C037;
+$gray       : #616161;
+$lightgray  : #969696;
+$text-gray  : #52565f;
+$transparent : transparent;
+$background : #f6f8f9;
+$back-opacity: rgba(255, 255, 255, 0.85);

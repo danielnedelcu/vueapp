@@ -1,0 +1,8 @@
+@mixin Transition($speed : 0.6s, $property : all, $ease : cubic-bezier(0.3, 1, 0.1, 1) ) {
+	will-change: transition; 
+	transition: $speed $property $ease;
+	-webkit-transition: $speed $property $ease;
+	-moz-transition: $speed $property $ease;
+	-ms-transition: $speed $property $ease;
+	-o-transition: $speed $property $ease;
+ }
