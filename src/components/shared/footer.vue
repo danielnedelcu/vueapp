@@ -21,11 +21,6 @@ export default defineComponent({
         return {
           search : []
         };
-    },
-
-
-    methods: {
-   
     }
 })
 </script>

@@ -17,7 +17,6 @@
         </div>
 
         <a :href="opinion.link"><div class="text-h3">{{ opinion.headline }}</div></a>
-        
     </q-item>    
 </template>
 
@@ -35,7 +34,6 @@ export default defineComponent({
         opinion : { type : Opinion, required : true }
     },
 
-
     computed: {                        
         ...mapGetters ( {LoggedState : 'getLoggedInState' })      
     },      
@@ -46,16 +44,16 @@ export default defineComponent({
          * namespace : opinions, admin(global)
          */
         ...mapActions( {
-            OpinionAction : ASSIGN_CURRENT_SELECTED_ITEM,
-            EditDrawerStateAction: ASSIGN_EDIT_DRAWER_STATE
+            ActionData : ASSIGN_CURRENT_SELECTED_ITEM,
+            ActionEditItem: ASSIGN_EDIT_DRAWER_STATE
         }),    
         
         /**
-         * Handles single opinion item edit
+         * Handles single item edit
          */        
         onEdit (obj) {
-            this.EditDrawerStateAction(0);
-            this.OpinionAction(obj)            
+            this.ActionEditItem(0);
+            this.ActionData(obj)            
         }
     }
 })

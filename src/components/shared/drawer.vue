@@ -182,6 +182,7 @@ export default defineComponent({
             persistent : false
         };
     },
+    
     computed: {
       toggleDrawer() {
         return this.$store.getters.getDrawerState;

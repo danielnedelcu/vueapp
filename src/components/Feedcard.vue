@@ -94,16 +94,16 @@ export default defineComponent({
          * namespace : topStories, admin(global)
          */
         ...mapActions( {
-            FeedAction : ASSIGN_CURRENT_SELECTED_ITEM,
-            EditDrawerStateAction: ASSIGN_EDIT_DRAWER_STATE
+            ActionData : ASSIGN_CURRENT_SELECTED_ITEM,
+            ActionEditItem: ASSIGN_EDIT_DRAWER_STATE
         }),         
 
         /**
-         * Handles single news item edit
+         * Handles single item edit
          */        
         onEdit (obj) {
-            this.EditDrawerStateAction(0);
-            this.FeedAction(obj)
+            this.ActionEditItem(0);
+            this.ActionData(obj)
         }       
     } 
 })

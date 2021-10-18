@@ -13,11 +13,8 @@
           </transition-group>
         </q-list>  
 
-
         <div class="container">
-          
             <midpage-card></midpage-card>
-          
         </div>
 
         <q-list separator id="IsotopeLayout" class="grid">
@@ -38,8 +35,6 @@
           <div class="flex column container-custom">
             <div class="">
               <div class="opinion__section-wrapper">
-
-
                 <q-list class="flex row justify-center">
                     <opinion-card v-for="(opinion, key, index) in opinionItems" 
                       :key="key" 
@@ -49,9 +44,6 @@
                       flat>                                         
                     </opinion-card>        
                 </q-list>        
-
-
-                
               </div>
             </div>
           </div>
@@ -117,9 +109,9 @@ export default defineComponent({
        * namespace : topStories, feed and opinion
        */
       ...mapActions( {
-          TopStoriesAction : 'topStories/' + ASSIGN_NEWS_ITEMS,
-          FeedItemsAction : 'feed/' + ASSIGN_FEED_ITEMS,
-          OpinionItemsAction : 'opinion/' + ASSIGN_OPINION_ITEMS
+          ActionTopData : 'topStories/' + ASSIGN_NEWS_ITEMS,
+          ActionFeedData : 'feed/' + ASSIGN_FEED_ITEMS,
+          ActionOpinionData : 'opinion/' + ASSIGN_OPINION_ITEMS
       }), 
 
     
@@ -128,28 +120,27 @@ export default defineComponent({
        */
       createGrid () {
         var grid = document.getElementById('IsotopeLayout');
-          setTimeout(function() {
-            window.iso = new Isotope( grid, {
-              filter: '*',
-              transitionDuration: 0,
-              itemSelector: '.card',
-              percentPosition: true
-            }); 
-          }, 200)          
+
+        setTimeout(function() {
+          window.iso = new Isotope( grid, {
+            filter: '*',
+            transitionDuration: 0,
+            itemSelector: '.card',
+            percentPosition: true
+          }); 
+        }, 200)          
       }
     },    
 
-
     updated () { this.createGrid(); },    
-
 
     mounted () {
       /**
        * Initial, sequantial load the three data collections in Firebase
        */
-      this.TopStoriesAction().then(() => {
-        this.FeedItemsAction({ type: 'likes', order: "desc" }).then(() => {
-          this.OpinionItemsAction()
+      this.ActionTopData().then(() => {
+        this.ActionFeedData({ type: 'likes', order: "desc" }).then(() => {
+          this.ActionOpinionData()
         })
       })
       
