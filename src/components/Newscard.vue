@@ -1,67 +1,65 @@
 <template>
-   
-        <q-card>      
-            <div class="card-wrapper" >
-                <q-item-section class="relative-position">
-                    <q-img 
-                        :ratio="1"
-                        img-class="news-image"
-                        spinner-color="primary"
-                        :src="news.image"/>          
+    <q-card>      
+        <div class="card-wrapper" >
+            <q-item-section class="relative-position">
+                <q-img 
+                    :ratio="1"
+                    img-class="news-image"
+                    spinner-color="primary"
+                    :src="news.image"/>          
 
-                    <q-item class="col-auto likes-container absolute-top-right" >
-                        <q-item-section>    
-                            <q-btn class="daniel" :percentage="percentage" :loading="loadingLikes" flat color="white" @click="updateCount(news)">                                              
-                                <!-- <q-tooltip class="likes-tooltip" anchor="top middle" self="bottom middle" :offset="[10, 10]"> -->
-                                    <span class="label-likes text-left text-white">{{ likes }}</span>                                
-                                <!-- </q-tooltip> -->
-                                <q-icon name="favorite_border"/>
+                <q-item class="col-auto likes-container absolute-top-right" >
+                    <q-item-section>    
+                        <q-btn class="daniel" :percentage="percentage" :loading="loadingLikes" flat color="white" @click="updateCount(news)">                                              
+                            <!-- <q-tooltip class="likes-tooltip" anchor="top middle" self="bottom middle" :offset="[10, 10]"> -->
+                                <span class="label-likes text-left text-white">{{ likes }}</span>                                
+                            <!-- </q-tooltip> -->
+                            <q-icon name="favorite_border"/>
 
-                                <template v-slot:loadingLikes>
-                                    <q-spinner-gears />
-                                </template>
+                            <template v-slot:loadingLikes>
+                                <q-spinner-gears />
+                            </template>
 
-                            </q-btn>
-                        </q-item-section>     
-                                
-                    </q-item>
+                        </q-btn>
+                    </q-item-section>     
+                            
+                </q-item>
 
-                    <div v-if="news.breaking" class="breaking-news absolute-bottom-left">
-                        <i class="material-icons">
-                            rss_feed  
-                        </i>
-                    </div>
-                
-                </q-item-section>
-                <div class="news-content">
-                    <q-btn v-if="LoggedState" v-on:click="onEdit(news)" round color="primary" class="news-edit absolute-top-right" icon="edit"></q-btn>                
-                    <q-item>
-                        <q-item-section avatar >
-                        <div class="q-avatar">
-                            <q-avatar class="q-avatar__content row flex-center overflow-hidden">
-                            <img :src="news.agencyLogo">
-                           
-                            </q-avatar>
-                        </div>
-                        </q-item-section>
-
-                        <q-item-section>
-                        <q-item-label>{{ news.agency }}</q-item-label>
-                        <q-item-label v-if="news.author" class="author-name" caption>{{news.author}}</q-item-label>
-                        </q-item-section>                  
-                    </q-item>
-
-                    <q-card-section>
-                        <a :href="news.link">
-                            <div class="text-h6">{{news.headline}}</div>
-                        </a>
-                    </q-card-section>
-                
+                <div v-if="news.breaking" class="breaking-news absolute-bottom-left">
+                    <i class="material-icons">
+                        rss_feed  
+                    </i>
                 </div>
-            </div>
             
-        </q-card>
-    
+            </q-item-section>
+            <div class="news-content">
+                <q-btn v-if="LoggedState" v-on:click="onEdit(news)" round color="primary" class="news-edit absolute-top-right" icon="edit"></q-btn>                
+                <q-item>
+                    <q-item-section avatar >
+                    <div class="q-avatar">
+                        <q-avatar class="q-avatar__content row flex-center overflow-hidden">
+                        <img :src="news.agencyLogo">
+                        
+                        </q-avatar>
+                    </div>
+                    </q-item-section>
+
+                    <q-item-section>
+                    <q-item-label>{{ news.agency }}</q-item-label>
+                    <q-item-label v-if="news.author" class="author-name" caption>{{news.author}}</q-item-label>
+                    </q-item-section>                  
+                </q-item>
+
+                <q-card-section>
+                    <a :href="news.link">
+                        <div class="text-h6">{{news.headline}}</div>
+                    </a>
+                </q-card-section>
+            
+            </div>
+        </div>
+        
+    </q-card>
 </template>
 
 <script>
@@ -101,8 +99,8 @@ export default defineComponent({
          * namespace : topStories, admin(global)
          */
         ...mapActions( {
-            TopStoriesAction : ASSIGN_CURRENT_SELECTED_ITEM,
-            EditDrawerStateAction: ASSIGN_EDIT_DRAWER_STATE
+            ActionData : ASSIGN_CURRENT_SELECTED_ITEM,
+            ActionEditItem: ASSIGN_EDIT_DRAWER_STATE
         }), 
 
         contains ( arr, obj ) {
@@ -173,11 +171,11 @@ export default defineComponent({
         },
 
         /**
-         * Handles single news item edit
+         * Handles single item edit
          */
         onEdit (obj) {
-            this.EditDrawerStateAction(0);
-            this.TopStoriesAction(obj)
+            this.ActionEditItem(0);
+            this.ActionData(obj)
         }        
     }
 })
@@ -188,24 +186,24 @@ export default defineComponent({
     @import '../css/quasar.variables.scss';
 
     @keyframes pulse-ring {
-    0% {
-        transform: scale(.33);
-    }
-    80%, 100% {
-        opacity: 0;
-    }
+        0% {
+            transform: scale(.33);
+        }
+        80%, 100% {
+            opacity: 0;
+        }
     }
 
     @keyframes pulse-dot {
-    0% {
-        transform: scale(.8);
-    }
-    50% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(.8);
-    }
+        0% {
+            transform: scale(.8);
+        }
+        50% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(.8);
+        }
     }
 
     a {

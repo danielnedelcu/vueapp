@@ -73,16 +73,12 @@ export default defineComponent({
     },
 
     created() {
-      console.log(auth.currentUser)
       if (auth.currentUser) {
         this.$store.dispatch('AssignLoggedState', true);
         this.$store.dispatch('AssignCurrentUser', auth.currentUser.email);
       }
     },
 
-    /**
-     * COMPUTED PROPERTIES
-     */
     computed: {
       ...mapGetters ([
         'getLoggedInState',

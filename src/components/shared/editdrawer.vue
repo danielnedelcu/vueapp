@@ -190,7 +190,6 @@ export default defineComponent({
         };
     },    
 
-
     computed : {
         ...mapGetters ( {
             CurrentItem : 'getCurrentItem',
@@ -198,13 +197,11 @@ export default defineComponent({
         })
     },
 
-
     watch : {
         CurrentItem (obj) {
             this.tempCollection = Object.assign({}, obj)    
         }
     },
-
 
     methods : {
         /**
@@ -212,7 +209,7 @@ export default defineComponent({
          * namespace : admin(global)
          */
         ...mapActions( {
-            EditDrawerStateAction: ASSIGN_EDIT_DRAWER_STATE
+            ActionEdit: ASSIGN_EDIT_DRAWER_STATE
         }), 
 
         handleProcessFileStart: function() {
@@ -227,7 +224,6 @@ export default defineComponent({
             console.log('processfilestart');
         },    
 
-        
         handleAddFile: function(e) {
             console.dir(e);
         },        
@@ -237,11 +233,8 @@ export default defineComponent({
             var uploadTask = storageRef.child(e.filename).put(e.file, {contentType: e.file.type});
 
             uploadTask.on('state_changed', (snapshot) => {              
-                
-                
                 var percentage  = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 this.uploadValuePercentage = percentage;
-                
             })
 
             uploadTask
@@ -249,16 +242,13 @@ export default defineComponent({
                 .then((url) => {
                     this.CurrentItem.image = url; 
                     this.uploadValuePercentage = 0;    
-                      
                 })
                 .catch(console.error);            
-            
         },      
         
         handleFileProgress: function() {
             console.log('addfileprogress');
         },            
-
 
         handleFilePondInit: function() {
             console.log('FilePond has initialized');
@@ -267,9 +257,6 @@ export default defineComponent({
             // console.dir(this.$refs.pond.getFiles());
         },        
 
-        /**
-         * Handles edit panel close
-         */
         onClose (state) {
             this.onCancel();        
         },
@@ -282,7 +269,6 @@ export default defineComponent({
         filterCategory (value) {
             this.CurrentItem.category = value.toLowerCase();
         },
-
 
         onCancel () {
             /**
@@ -326,7 +312,7 @@ export default defineComponent({
             /**
              * Handles drawer state
              */
-            this.EditDrawerStateAction(this.getEditDrawerState);
+            this.ActionEdit(this.getEditDrawerState);
         },
         
 
@@ -369,7 +355,7 @@ export default defineComponent({
             //     }  else {
             //         alert('bad form')
             //     }
-            // })           
+            // })  //         
         },
 
         onPhotosClick() {}
