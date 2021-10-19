@@ -1,7 +1,5 @@
 <template>
-    
         <section class="midpage-section q-pa-sm q-py-xl">
-
             <div class="flex justify-between">
                 <div v-if="blurbChange" class="update-indicator flex">
                     <div class=" fixed-left typing-indicator">
@@ -39,7 +37,6 @@
                 </div>   
             </div>   
         </section> 
- 
 </template>
 
 <script>
@@ -70,17 +67,11 @@ export default defineComponent({
         }
     },
 
-
     methods : {
-        /**
-         * mapActions
-         * namespace : feed
-         */
         ...mapActions( {
-            FeedItemsAction : 'feed/' + ASSIGN_FEED_ITEMS,
+            ActionData : 'feed/' + ASSIGN_FEED_ITEMS,
         }), 
     },    
-
 
     watch : {
         model (value) {
@@ -98,15 +89,9 @@ export default defineComponent({
                 break;                                 
             }
 
-            /**
-             * Dispatch feed
-             */
-            this.FeedItemsAction(type)            
+            this.ActionData(type)            
         },
 
-        /**
-         * Manages filter array for news categories
-         */
         checkedCategories (obj) {
             window.iso.arrange({ filter: obj });
         }

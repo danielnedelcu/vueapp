@@ -1,59 +1,54 @@
 <template>
-   
-        <q-card class="card">      
-            <div class="card-wrapper" >
-                <q-item-section>
-                    <q-img 
-                        :ratio="16/9"
-                        img-class="news-image"
-                        spinner-color="primary"
-                        :src="feed.image"/>                          
-                </q-item-section>
+    <q-card class="card">      
+        <div class="card-wrapper" >
+            <q-item-section>
+                <q-img 
+                    :ratio="16/9"
+                    img-class="news-image"
+                    spinner-color="primary"
+                    :src="feed.image"/>                          
+            </q-item-section>
 
-                <q-item class="col-auto likes-container absolute-top-right" >
-                    <q-item-section>    
-                        <q-btn class="daniel" :percentage="percentage" :loading="loadingLikes" flat color="white" @click="updateCount(feed)">                                              
-                            <!-- <q-tooltip class="likes-tooltip" anchor="top middle" self="bottom middle" :offset="[10, 10]"> -->
-                                <span class="label-likes text-left text-white">{{ likes }}</span>                                
-                            <!-- </q-tooltip> -->
-                            <q-icon name="favorite_border"/>
+            <q-item class="col-auto likes-container absolute-top-right" >
+                <q-item-section>    
+                    <q-btn class="daniel" :percentage="percentage" :loading="loadingLikes" flat color="white" @click="updateCount(feed)">                                              
+                        <!-- <q-tooltip class="likes-tooltip" anchor="top middle" self="bottom middle" :offset="[10, 10]"> -->
+                            <span class="label-likes text-left text-white">{{ likes }}</span>                                
+                        <!-- </q-tooltip> -->
+                        <q-icon name="favorite_border"/>
 
-                            <template v-slot:loadingLikes>
-                                <q-spinner-gears />
-                            </template>
+                        <template v-slot:loadingLikes>
+                            <q-spinner-gears />
+                        </template>
+                    </q-btn>
+                </q-item-section>             
+            </q-item>
 
-                        </q-btn>
-                    </q-item-section>             
+            <div v-bind:class="['news-content', category]">
+                <q-btn v-if="LoggedState" v-on:click="onEdit(feed)" round color="primary" class="news-edit absolute-top-right" icon="edit"></q-btn>                
+                <q-item>
+                    <q-item-section avatar >
+                        <div class="q-avatar">
+                            <q-avatar class="q-avatar__content row flex-center overflow-hidden">
+                            <img :src="feed.agencyLogo">
+                            </q-avatar>
+                        </div>
+                    </q-item-section>
+
+                    <q-item-section>
+                        <q-item-label>{{ feed.agency }}</q-item-label>
+                        <q-item-label v-if="feed.author" class="author-name" caption>{{feed.author}}</q-item-label>
+                    </q-item-section>                  
                 </q-item>
 
-                <div v-bind:class="['news-content', category]">
-                    <q-btn v-if="LoggedState" v-on:click="onEdit(feed)" round color="primary" class="news-edit absolute-top-right" icon="edit"></q-btn>                
-                    <q-item>
-                        <q-item-section avatar >
-                            <div class="q-avatar">
-                                <q-avatar class="q-avatar__content row flex-center overflow-hidden">
-                                <img :src="feed.agencyLogo">
-                                </q-avatar>
-                            </div>
-                        </q-item-section>
-
-                        <q-item-section>
-                            <q-item-label>{{ feed.agency }}</q-item-label>
-                            <q-item-label v-if="feed.author" class="author-name" caption>{{feed.author}}</q-item-label>
-                        </q-item-section>                  
-                    </q-item>
-
-                    <q-card-section>
-                        <a :href="feed.link">
-                            <div class="text-h6">{{feed.headline}}</div>
-                        </a>
-                    </q-card-section>
-                
-                </div>
+                <q-card-section>
+                    <a :href="feed.link">
+                        <div class="text-h6">{{feed.headline}}</div>
+                    </a>
+                </q-card-section>
             </div>
-            
-        </q-card>
-    
+        </div>
+    </q-card>
 </template>
 
 <script>
@@ -72,7 +67,6 @@ export default defineComponent({
 
     data () {
         return {
-            
             loadingLikes: false,
             likes : this.feed.likes,
             disableIcon : false,
@@ -83,24 +77,16 @@ export default defineComponent({
         }
     },
 
-
     computed: {                        
         ...mapGetters ( {LoggedState : 'getLoggedInState' })      
     },       
 
     methods : {
-        /**
-         * mapActions
-         * namespace : topStories, admin(global)
-         */
         ...mapActions( {
             ActionData : ASSIGN_CURRENT_SELECTED_ITEM,
             ActionEditItem: ASSIGN_EDIT_DRAWER_STATE
         }),         
-
-        /**
-         * Handles single item edit
-         */        
+    
         onEdit (obj) {
             this.ActionEditItem(0);
             this.ActionData(obj)
@@ -108,7 +94,6 @@ export default defineComponent({
     } 
 })
 </script>
-
 
 <style scoped lang="scss">
     @import '../css/quasar.variables.scss';

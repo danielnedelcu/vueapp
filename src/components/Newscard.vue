@@ -65,7 +65,7 @@
 <script>
 import { defineComponent } from 'vue'
 import News from '../models/News'
-import  store from '../store/index'
+import store from '../store/index'
 import Fingerprint2 from 'fingerprintjs2';
 import { newsitemsRef } from '../firebase';
 import { mapGetters, mapActions } from 'vuex';
@@ -94,10 +94,6 @@ export default defineComponent({
     },       
 
     methods : {
-        /**
-         * mapActions
-         * namespace : topStories, admin(global)
-         */
         ...mapActions( {
             ActionData : ASSIGN_CURRENT_SELECTED_ITEM,
             ActionEditItem: ASSIGN_EDIT_DRAWER_STATE
@@ -112,11 +108,7 @@ export default defineComponent({
 
         updateCount(item) {  
             var count = item.likes;  
-            let self = this; 
             
-            /**
-             * Get unique fingerprint
-             */
             Fingerprint2.get( (components) => {
                 let values = components.map(function (component) { return component.value })
                 let murmurHash = Fingerprint2.x64hash128(values.join('') + item.id, 4)
@@ -127,26 +119,15 @@ export default defineComponent({
                         this.addItemtoStorage(storeArray, item.id, murmurHash, count);
                     }
                 } else {
-                    /**
-                     * First time around, no 'storageArray' found in localStorage
-                     */
                     this.addItemtoStorage(storeArray, item.id, murmurHash, count);
                 }
             });
         },
-
-        /**
-         * Manage localStorage for LIKEs
-         */
+    
         addItemtoStorage (arr, id, hash, count) {
-            /**
-             * Initial loading symbol
-             */
             this.loadingLikes = true; 
 
-            /**
-             * Update firestore DB
-             */
+            // Update firestore DB
             newsitemsRef.doc(id).update({
                 likes : ++count
             })
@@ -162,17 +143,12 @@ export default defineComponent({
                     }                    
                 }, 100);
 
-                /**
-                 * Update localStorage
-                 */
+                // Update localStorage
                 arr.push(Object.assign({}, {key : id, value : hash}));                    
                 localStorage.setItem('storageArray', JSON.stringify(arr));
             });            
         },
 
-        /**
-         * Handles single item edit
-         */
         onEdit (obj) {
             this.ActionEditItem(0);
             this.ActionData(obj)
@@ -180,7 +156,6 @@ export default defineComponent({
     }
 })
 </script>
-
 
 <style scoped lang="scss">
     @import '../css/quasar.variables.scss';

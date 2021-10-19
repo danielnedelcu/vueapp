@@ -89,12 +89,7 @@ export default defineComponent({
       } 
     },
 
-
-    computed: {
-      /**
-       * mapGetters
-       * namespace : topStories, feed and opinion
-       */      
+    computed: {  
       ...mapGetters({
           newsItems : 'topStories/newsItems',
           feedItems : 'feed/feedItems',
@@ -102,22 +97,13 @@ export default defineComponent({
       })
     },     
 
-
     methods : {
-      /**
-       * mapActions
-       * namespace : topStories, feed and opinion
-       */
-      ...mapActions( {
+      ...mapActions({
           ActionTopData : 'topStories/' + ASSIGN_NEWS_ITEMS,
           ActionFeedData : 'feed/' + ASSIGN_FEED_ITEMS,
           ActionOpinionData : 'opinion/' + ASSIGN_OPINION_ITEMS
       }), 
 
-    
-      /**
-       * Masonry Isotope functionality
-       */
       createGrid () {
         var grid = document.getElementById('IsotopeLayout');
 
@@ -132,22 +118,26 @@ export default defineComponent({
       }
     },    
 
-    updated () { this.createGrid(); },    
+    updated () { 
+      this.createGrid(); 
+    },    
+
+    watch: {
+      feedItems (){
+        if (window.iso !== undefined) {
+          this.createGrid(); 
+        }
+      }
+    },
 
     mounted () {
-      /**
-       * Initial, sequantial load the three data collections in Firebase
-       */
       this.ActionTopData().then(() => {
         this.ActionFeedData({ type: 'likes', order: "desc" }).then(() => {
-          this.ActionOpinionData()
+          this.ActionOpinionData().then(() => {
+            this.createGrid();
+          })
         })
       })
-      
-      /**
-       * Initializes the Masonry grid for FEED cards
-       */
-      this.createGrid();
     }
 
   });

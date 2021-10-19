@@ -20,11 +20,9 @@
                                             align="left"
                                             narrow-indicator
                                             class="text-text-gray"
-                                            >
-                                                <q-tab :ripple="false" name="info" label="Info" />
-                                                <q-tab :ripple="false" v-on:click="onPhotosClick" name="photos" label="Photos" />
-                                        
-                                        
+                                        >
+                                            <q-tab :ripple="false" name="info" label="Info" />
+                                            <q-tab :ripple="false" v-on:click="onPhotosClick" name="photos" label="Photos" />
                                         </q-tabs>
                                     </div>
 
@@ -40,8 +38,6 @@
                                                 @reset="onCancel">
                                                 <q-select  tabindex="0" @input="filterFn"  outlined v-model="CurrentItem.agency" :options="this.agencyList" label="News Organization" />
 
-                                                <!-- <q-input color="text-gray q-mt-md" outlined v-model="CurrentItem.agency" label="News Organization" stack-label :dense="dense" 
-                                                    :rules="[val => val !== null && val !== '' || CurrentItem.agency]"/> -->
                                                 <q-input color="text-gray q-mt-md" outlined v-model="CurrentItem.author" label="Author" stack-label :dense="dense" 
                                                      lazy-rules :rules="[val => val !== null && val !== '' || CurrentItem.author]"/>                                                
                                                 <q-input color="text-gray q-mt-md" outlined v-model="CurrentItem.headline" label="Headline" stack-label :dense="dense" 
@@ -81,7 +77,6 @@
                                                             <q-spinner-gears />
                                                         </template>
                                                     </q-btn>
-                                                    
                                                 </div> 
                                             </q-form>                                               
                                         </q-tab-panel>
@@ -89,33 +84,33 @@
                                         <q-tab-panel name="photos">
                                             <div class="row">
                                                 <file-pond
-                                                        name="filepond"
-                                                        ref="pond"
-                                                        multiple="false"
-                                                        class-name="my-pond"
-                                                        drop-validation = "true"
-                                                        label-idle='Drag and Drop your image here or <span class="filepond--label-action"><i class="material-icons">get_app</i> Browse </span>'
-                                                        allow-multiple="true"
-                                                        label-file-loading = "Loading"
-                                                        label-file-processing = "Uploading"
-                                                        label-file-processing-complete = "Upload complete"
-                                                        label-button-process-item = 'Upload'
-                                                        styleProgressIndicatorPosition = "right"
-                                                        styleLoadIndicatorPosition = "right"
-                                                        styleButtonRemoveItemPosition = "left"
-                                                        styleButtonProcessItemPosition = "right"
-                                                        accepted-file-types="image/jpeg, image/png"
-                                                        instant = "false"
+                                                    name="filepond"
+                                                    ref="pond"
+                                                    multiple="false"
+                                                    class-name="my-pond"
+                                                    drop-validation = "true"
+                                                    label-idle='Drag and Drop your image here or <span class="filepond--label-action"><i class="material-icons">get_app</i> Browse </span>'
+                                                    allow-multiple="true"
+                                                    label-file-loading = "Loading"
+                                                    label-file-processing = "Uploading"
+                                                    label-file-processing-complete = "Upload complete"
+                                                    label-button-process-item = 'Upload'
+                                                    styleProgressIndicatorPosition = "right"
+                                                    styleLoadIndicatorPosition = "right"
+                                                    styleButtonRemoveItemPosition = "left"
+                                                    styleButtonProcessItemPosition = "right"
+                                                    accepted-file-types="image/jpeg, image/png"
+                                                    instant = "false"
 
-                                                        v-bind:files="myFiles"
-                                                        v-on:processfilestart="handleProcessFileStart"
-                                                        v-on:processfileprogress="handleProcessFileProgress"
-                                                        v-on:onprocessfile="handleProcessFile"
-                                                        v-on:init="handleFilePondInit"
-                                                        v-on:addfile="handleAddFile"
-                                                        v-on:addfilestart="handleFileStart"
-                                                        v-on:addfileprogress="handleFileProgress"
-                                                         />
+                                                    v-bind:files="myFiles"
+                                                    v-on:processfilestart="handleProcessFileStart"
+                                                    v-on:processfileprogress="handleProcessFileProgress"
+                                                    v-on:onprocessfile="handleProcessFile"
+                                                    v-on:init="handleFilePondInit"
+                                                    v-on:addfile="handleAddFile"
+                                                    v-on:addfilestart="handleFileStart"
+                                                    v-on:addfileprogress="handleFileProgress"
+                                                />
 
                                                 <div class="image-upload">
                                                     <q-circular-progress
@@ -123,8 +118,7 @@
                                                         size="30px"
                                                         color="primary"
                                                         class="q-ma-md"
-                                                        />                                                    
-                                                    
+                                                    />                                                    
                                                 </div>
                                             </div>
                                         </q-tab-panel>                                        
@@ -204,10 +198,6 @@ export default defineComponent({
     },
 
     methods : {
-        /**
-         * mapActions
-         * namespace : admin(global)
-         */
         ...mapActions( {
             ActionEdit: ASSIGN_EDIT_DRAWER_STATE
         }), 
@@ -229,11 +219,10 @@ export default defineComponent({
         },        
         
         handleFileStart: function(e) {
-            let _self = this;
-            var uploadTask = storageRef.child(e.filename).put(e.file, {contentType: e.file.type});
+            const uploadTask = storageRef.child(e.filename).put(e.file, {contentType: e.file.type});
 
             uploadTask.on('state_changed', (snapshot) => {              
-                var percentage  = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                const percentage  = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 this.uploadValuePercentage = percentage;
             })
 

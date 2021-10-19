@@ -69,9 +69,8 @@
 <script>
 import { defineComponent } from 'vue'
 import * as Constants from '../constants'
-import News from '../models/News'
 import  store from '../store/index'
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { newsRef, feedRef, opinionRef, appRoot, storageRef  } from '../firebase';
 import  { REMOVE_OPINION_ITEM, 
           REMOVE_NEWS_ITEM, 
@@ -93,12 +92,7 @@ export default defineComponent({
         }
     },
 
-
     methods : {
-        /**
-         * mapActions
-         * namespace : topStories, admin(global)
-         */
         ...mapActions( {
             SelectedItemAction : ASSIGN_CURRENT_SELECTED_ITEM,
             EditDrawerStateAction: ASSIGN_EDIT_DRAWER_STATE,
@@ -107,27 +101,16 @@ export default defineComponent({
             OpinionItemAction : 'opinion/' + REMOVE_OPINION_ITEM
         }),         
 
-
-        /**
-         * Editing single news blurb
-         */
         onEdit (obj) {
             this.EditDrawerStateAction(0);
             this.SelectedItemAction(obj)
         },
         
-        /**
-         * Removing blurb overlay effect
-         */
         onRemove (obj) {
             this.removeOverlay = true;
            
         },
 
-        /**
-         * Deleting document from collection
-         * 
-         */
         onDeleteItem(obj) {
             this.saveBtnLoading = true;    
     
@@ -172,11 +155,11 @@ export default defineComponent({
 
         endSequence () {
             return new Promise((resolve, reject) => {
-                    setTimeout( () => {
-                        this.saveBtnLoading = false; 
-                        this.removeOverlay = false;
-                        resolve();
-                    }, 1000)   
+                setTimeout( () => {
+                    this.saveBtnLoading = false; 
+                    this.removeOverlay = false;
+                    resolve();
+                }, 1000)   
             })
         },
 
@@ -192,33 +175,19 @@ export default defineComponent({
                 .catch(err => { throw err; });
         },
 
-        /**
-         * Vuex action
-         * updates top stories state
-         */
         dispatchNewsRemoval (obj) {
             this.NewsItemAction(obj)
         },
-        
-        /**
-         * Vuex action
-         * updates feed state
-         */        
+          
         dispatchFeedRemoval (obj) {
             this.FeedItemAction(obj)
         },        
 
-        /**
-         * Vuex action
-         * updates opinion state
-         */
+
         dispatchOpinionRemoval (obj) {
             this.OpinionItemAction(obj)
         },
 
-        /**
-         * Cancel blurb removal
-         */
         onCancel () {
             this.removeOverlay = false;
         }
