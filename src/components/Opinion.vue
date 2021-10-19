@@ -39,18 +39,11 @@ export default defineComponent({
     },      
     
     methods : {
-       /**
-         * mapActions
-         * namespace : opinions, admin(global)
-         */
         ...mapActions( {
             ActionData : ASSIGN_CURRENT_SELECTED_ITEM,
             ActionEditItem: ASSIGN_EDIT_DRAWER_STATE
         }),    
-        
-        /**
-         * Handles single item edit
-         */        
+           
         onEdit (obj) {
             this.ActionEditItem(0);
             this.ActionData(obj)            
