@@ -53,17 +53,19 @@
 </template>
 
 <script>
+  import { defineComponent, defineAsyncComponent } from 'vue';
   import { mapGetters, mapActions, mapState } from 'vuex';
   import Isotope from 'isotope-layout';
   import fitColumns from 'isotope-fit-columns';
   import imgLoad from 'imagesloaded';
   import Fingerprint2 from 'fingerprintjs2';
-  import NewsCard from '../components/Newscard';
-  import FeedCard from '../components/Feedcard';
-  import Opinion from '../components/Opinion';
-  import Midpage from '../components/Midpage';
   import  {ASSIGN_NEWS_ITEMS, ASSIGN_FEED_ITEMS, ASSIGN_OPINION_ITEMS}  from "../store/actions.type";
-  import { defineComponent } from 'vue';
+
+
+  const NewsCard = defineAsyncComponent(() => import('../components/Newscard'))
+  const FeedCard = defineAsyncComponent(() => import('../components/Feedcard'))
+  const Opinion = defineAsyncComponent(() => import('../components/Opinion'))
+  const Midpage = defineAsyncComponent(() => import('../components/Midpage'))
 
 export default defineComponent({
     name: "PageIndex",
